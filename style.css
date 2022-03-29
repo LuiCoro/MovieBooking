@@ -1,14 +1,141 @@
 /* CSS Styling Goes Here! */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
 
+/* Custom Color Variables */
+:root {
+    --main-color: #6feaf6;
+    --standard-white: #fff;
+}
 
+/* Global Styling */
 * {
     box-sizing: border-box;
 }
 
+/* Body Styling */
 body {
     background-color: #242333;
-    display: flex;
-    flex-direction: column;
+    color: var(--standard-white);
+    display: flex; /* Default */
+    flex-direction: column; /* Aligns all the seats into columns rather than rows */
+    align-items: center; /* Aligns the columns to the center of the screen */
+    justify-content: center; /* Aligns the columns to the center of the screen */
+    height: 100vh; /* Sets the height of the screen to 100vh */
+    font-family: 'Oswald', sans-serif; /* Sets the font family to 'Oswald' */
+    margin: 0;
+}
 
+
+.movie-container {
+    margin: 20px 0; /* 20px top and bottom */
+}
+
+/* Movie Title Styling */
+.movie-container select {
+    background-color: var(--standard-white);
+    border: 0; /* Remove default border */
+    border-radius: 5px; /* Add a border radius */
+    font-size: 14px; /* Increase font size */
+    margin-left: 10px; /* Add some space on the left side */
+    padding: 5px 15px 5px 15px; /* Add some space on the right side */
+    -moz-animation:  none; /* Firefox */
+    -webkit-animation: none; /* Add some animation on hover */
+    appearance: none; /* Remove default arrow */
+}
+
+/* Movie Title Styling */
+.container{
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    margin-bottom: 30px; /* Space between cards */
+}
+
+/* The Seats Shape */
+.seat {
+    background-color: #444451;
+    height: 12px; /* Height of the seat */
+    width: 15px; /* This is the width of the seat */
+    margin: 3px; /* Space between seats */
+    border-top-left-radius: 10px; /* top left corner */
+    border-top-right-radius: 10px; /* top right corner */
+}
+
+/* When A Seat Is Selected */
+.seat.selected {
+    background-color: var(--main-color); /* Change the color of the seat selected */
+}
+
+/* When A Seat Is Not Available */
+.seat.occupied {
+    background-color: var(--standard-white); /* Change the color of the seat occupied */
+}
+
+/* Gives Spacing between the Second Column Of Seats to give it that movie alise look */
+.seat:nth-of-type(2){
+    margin-right: 18px; /* Change this to change the spacing between the second column of seats */
+}
+
+/* Gives Spacing between the Last Second Column Of Seats to give it that movie alise look */
+.seat:nth-last-of-type(2){
+    margin-left: 18px; /* Change this to change the spacing between the last second column of seats */
+}
+
+/* When ever a seat is not selected the cursor will be a pointer also gives it that pop up animation  */
+.seat:not(.selected):hover {
+    cursor: pointer; /* Change the cursor to a pointer */
+    transform: scale(1.2); /* Change the size of the seat when hovered */
+}
+
+/* Seats displayed within the showcase will not be changed by the animation & have a default cursor */
+.showcase .seat:not(.selected):hover {
+    cursor: default;
+    transform: scale(1);
+}
+
+/* Movie Details */
+.showcase {
+    background-color: rgba(0,0,0,0.1); /* Change the background color of the showcase */
+    padding: 5px 10px; /* Change the padding of the showcase */
+    border-radius: 5px; /* Change the border radius of the showcase */
+    color: #777;
+    list-style-type: none; /* Removes the bullets from the movie details */
+    display: flex; /* Makes the movie details a flexbox */
+    justify-content: space-between; /* Makes the movie details space between the elements */
+}
+
+/* Movie List */
+.showcase li {
+    display: flex; /* Makes the movie list a flexbox */
+    align-items: center; /* Aligns the movie list items to the center */
+    justify-content: center; /* Makes the movie list items space between the elements */
+    margin: 0 10px; /* Space between the movie list items */
+
+}
+
+.showcase li small {
+    margin-left: 2px;
+}
+
+/* Displays The Row */
+.row {
+    display: flex;
+}
+
+/* Displays The Screen */
+.screen {
+    background-color: var(--standard-white); /* Change the background color of the screen */
+    height: 70px; /* Change the height of the screen */
+    margin: 15px 0; /* Space between the screen and the movie details */
+    width: 100%; /* Makes the screen full width */
+    transform: rotateX(-45deg); /* Rotates the screen */
+    box-shadow: 0 3px 10px rgba(255,255,255,0.7); /* Adds a shadow to the screen */
+}
+
+/* The p-tag displaying the info of seat and amount we payed */
+p.text {
+    margin: 5px 0; /* Space between the p-tag and the seat */
+}
+
+/* Displays The # of Seats & the Price as well */
+p.text span {
+    color: var(--main-color); /* Change the color of the price and amounts of Seats */
 }
