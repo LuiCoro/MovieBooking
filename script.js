@@ -9,9 +9,19 @@ const movieSelect = document.getElementById('movie'); // Grabs the movie select 
 let ticketPrice = +movieSelect.value; // Grabs the value of the movie select element and converts it to a number (NOTE: needs to be let since we are changing the value of the ticket price)
 console.log(ticketPrice); // Logs the ticket price(10)
 
+function setMovieData(movieIndex, moviePrice) { // Function that sets the movie data
+    localStorage.setItem('selectedMovieIndex', movieIndex); // Sets the selected movie index in local storage
+    localStorage.setItem('selectedMoviePrice', moviePrice); // Sets the selected movie price in local storage
+}
+
 function updateSelectedCount() { // Function to update the selected count
     const selectedSeats = document.querySelectorAll('.row .seat.selected'); // Grabs all the selected seats
   // console.log(selectedSeats); // Logs the selected seats
+  
+  const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat)); // Creates an array of the selected seats and maps it to the index of the seats array (NOTE: ... is the spread operator)
+  // console.log(seatsIndex); // Logs the seats index
+  
+  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex)); // Stores the selected seats in local storage as a string (NOTE: JSON.stringify converts the array to a string)
   
     const selectedSeatsCount = selectedSeats.length; // Grabs the number of selected seats
     count.innerText = selectedSeatsCount; // Sets the count element to the number of selected seats
@@ -20,6 +30,10 @@ function updateSelectedCount() { // Function to update the selected count
 
 movieSelect.addEventListener('change', (e) => { // Listens for a change in the movie select element
     ticketPrice = +e.target.value; // Sets the ticket price to be a number & to the value of the movie select element
+  // console.log(e.target.selectedIndex,e.target.value); // Logs the value of the movie select element and the index of the movie select element
+  
+  setMovieData(e.target.selectedIndex,e.target.value); // Sets the movie data
+  
     updateSelectedCount(); // Calls the updateSelectedCount function
 });
 
