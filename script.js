@@ -6,8 +6,11 @@ const count = document.getElementById('count'); // Grabs the count element
 const total = document.getElementById('total'); // Grabs the total element
 const movieSelect = document.getElementById('movie'); // Grabs the movie select element
 
+populateUI();
+
+
 let ticketPrice = +movieSelect.value; // Grabs the value of the movie select element and converts it to a number (NOTE: needs to be let since we are changing the value of the ticket price)
-console.log(ticketPrice); // Logs the ticket price(10)
+// console.log(ticketPrice); // Logs the ticket price(10)
 
 function setMovieData(movieIndex, moviePrice) { // Function that sets the movie data
     localStorage.setItem('selectedMovieIndex', movieIndex); // Sets the selected movie index in local storage
@@ -28,6 +31,25 @@ function updateSelectedCount() { // Function to update the selected count
     total.innerText = selectedSeatsCount * ticketPrice; // Sets the total element to the number of selected seats times the ticket price
 }
 
+//Get Data From Local Storage and Populate UI
+function populateUI() {
+    const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats')); // Grabs the selected seats from local storage and converts it to an array
+    // console.log(selectedSeats); // Logs the selected seats
+    
+    if (selectedSeats !== null && selectedSeats.length > 0) { // Checks if there are selected seats
+        seats.forEach((seat, index) => { // Loops through the seats
+            if (selectedSeats.indexOf(index) > -1) { // Checks if the index of the selected seats is greater than -1 (NOTE: -1 is the index of the last element in an array)
+                seat.classList.add('selected'); // Adds the selected class to the seat
+            }
+        });
+    }
+    
+    const selectedMovieIndex = localStorage.getItem('selectedMovieIndex'); // Grabs the selected movie index from local storage
+    if (selectedMovieIndex !== null) { // Checks if there is a selected movie index
+        movieSelect.selectedIndex = selectedMovieIndex; // Sets the selected index of the movie select element to the selected movie index
+    }
+}
+
 movieSelect.addEventListener('change', (e) => { // Listens for a change in the movie select element
     ticketPrice = +e.target.value; // Sets the ticket price to be a number & to the value of the movie select element
   // console.log(e.target.selectedIndex,e.target.value); // Logs the value of the movie select element and the index of the movie select element
@@ -46,7 +68,8 @@ container.addEventListener('click', (e) => { // Adds an event listener that togg
     }
 });
 
-
+// Initial count and total set
+updateSelectedCount();
 
 
 
